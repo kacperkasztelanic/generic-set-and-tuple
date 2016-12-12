@@ -50,6 +50,13 @@ namespace zmpo
 			{
 			}
 
+			MySet(const MySet &obj) :
+					m_capacity(obj.m_capacity), m_size(obj.m_size), arr(new T*[obj.m_capacity])
+			{
+				for (size_t i = 0; i < obj.m_size; i++)
+					arr[i] = new T(*obj.arr[i]);
+			}
+
 			~MySet()
 			{
 				clear();
