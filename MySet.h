@@ -30,7 +30,7 @@ namespace zmpo
 					m_capacity *= 2;
 					T** newArr = new T*[m_capacity];
 					std::copy(arr, arr + m_size, newArr);
-					delete arr;
+					delete [] arr;
 					arr = newArr;
 				}
 			}
@@ -59,7 +59,8 @@ namespace zmpo
 
 			~MySet()
 			{
-				clear();
+				clear();				
+				delete [] arr;
 			}
 
 			void clear()
@@ -144,14 +145,14 @@ namespace zmpo
 				return m_size;
 			}
 
-			size_t capacity() const
-			{
-				return m_capacity;
-			}
-
 			bool isEmpty() const
 			{
 				return m_size == 0;
+			}
+
+			size_t capacity() const
+			{
+				return m_capacity;
 			}
 
 			std::string toString() const

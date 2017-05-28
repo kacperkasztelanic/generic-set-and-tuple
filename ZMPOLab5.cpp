@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 #include "MySet.h"
 #include "Tuple.h"
@@ -13,6 +14,39 @@ bool mySort(int* a, int* b)
 
 int main()
 {
+	MySet<std::string> set;
+	for (int i = 0; i < 10; i++)
+	{
+		std::stringstream ss;
+		ss << "q";
+		for (int j = 0; j <= i; j++)
+		{
+			ss << j;
+			set += ss.str();
+		}
+	}
+	set.sort([](std::string* a, std::string* b)
+	{
+		return a->length()<b->length();
+	});
+	cout << set << endl;
+
+	MySet<Tuple<int, double> > ms;
+	ms.add(Tuple<int, double>(1, 1.1));
+	ms.add(Tuple<int, double>(0, 2.2));
+	ms.add(Tuple<int, double>(2, 0.1));
+	cout << ms << endl;
+	ms.sort([](Tuple<int, double>* a, Tuple<int, double>* b)
+	{
+		return a->getA() < b->getA();
+	});
+	cout << ms << endl;
+	ms.sort([](Tuple<int, double>* a, Tuple<int, double>* b)
+	{
+		return a->getB() < b->getB();
+	});
+	cout << ms << endl;
+
 	MySet<int> s;
 	int i = 1;
 	s.add(i);
@@ -42,22 +76,6 @@ int main()
 	s4 += 500;
 	cout << (s1 == s4) << endl;
 	cout << s << endl;
-
-	MySet<Tuple<int, double>> ms;
-	ms.add(Tuple<int, double>(1, 1.1));
-	ms.add(Tuple<int, double>(0, 2.2));
-	ms.add(Tuple<int, double>(2, 0.1));
-	cout << ms << endl;
-	ms.sort([](Tuple<int, double>* a, Tuple<int, double>* b)
-	{
-		return a->getA() < b->getA();
-	});
-	cout << ms << endl;
-	ms.sort([](Tuple<int, double>* a, Tuple<int, double>* b)
-	{
-		return a->getB() < b->getB();
-	});
-	cout << ms << endl;
 
 	return 0;
 }
